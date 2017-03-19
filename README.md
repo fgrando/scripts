@@ -9,5 +9,9 @@ As this scripts grow, they will be moved to a specific repository, so if you fee
 
 > Do what the f*ck you want with this software, it is free and has no warranty at all o/
 
-## TBD1
+#send_gmail: send emails from command line.
+This python script uses a gmail account (using SSL) to send emails to any other address.
+Only text is supported right now.
+
+
 ## TBD1
