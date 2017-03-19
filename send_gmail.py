@@ -1,5 +1,7 @@
 import smtplib
 
+from mysettings import * # to get my email account and passwords
+
 #thanks to: http://stackoverflow.com/questions/10147455/how-to-send-an-email-with-gmail-as-provider-using-python
 
 def send_gmail(user, passwd, recipient, subject, body):
@@ -23,11 +25,12 @@ def send_gmail(user, passwd, recipient, subject, body):
         return False
 
 if __name__ == "__main__":
-    sent = send_gmail("senhoriluminati@gmail.com", # your gmail
-               "mascadagloriosa",           # your gmail password
-               "fernandozatt@gmail.com",    # recipient
-               "JARVIS",                    # subject
-               "POWER FINE"                 # body
+    # replace my_send_gmail_* with your settings
+    sent = send_gmail(my_send_gmail_user,   # your gmail
+               my_send_gmail_pass,          # your gmail password
+               my_send_gmail_dest,          # recipient
+               my_send_gmail_subj,          # subject
+               my_send_gmail_text           # body
                )
     if sent:
         exit(0)
