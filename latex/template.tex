@@ -1,0 +1,141 @@
+\documentclass[a4paper]{article}
+
+\usepackage{fancyhdr}
+\usepackage{lipsum}
+
+\usepackage{tikz}
+\usepackage{layout}
+
+\usepackage{fontspec}  % set some font 
+\setmainfont{Arial}
+
+\usepackage{wallpaper}
+\usepackage[left=3cm, right=2cm, bottom=4cm, top=2cm, showframe]{geometry}
+%\usepackage[left=3cm, right=2cm, bottom=4cm, top=2cm]{geometry}
+
+\lhead{tt\\Foo}
+\rhead{vv\\\thepage}
+\lfoot{tt\\\today}
+\rfoot{ff\\\thepage}
+
+\pagestyle{fancy}
+
+
+%regular portrait configurations
+\newlength{\paperheightPortrait}
+\setlength{\paperheightPortrait}{\paperheight}
+\newlength{\paperwidthPortrait}
+\setlength{\paperwidthPortrait}{\paperwidth}
+\newlength{\textheightPortrait}
+\setlength{\textheightPortrait}{\textheight}
+\newlength{\textwidthPortrait}
+\setlength{\textwidthPortrait}{\textwidth}
+\newlength{\vsizePortrait}
+\setlength{\vsizePortrait}{\vsize}
+\newlength{\hsizePortrait}
+\setlength{\hsizePortrait}{\hsize}
+\newlength{\headwidthPortrait}
+\setlength{\headwidthPortrait}{\headwidth}
+
+%landscape configurations are the opposite:
+\newlength{\textheightLandscape} 
+\setlength{\textheightLandscape}{\textwidthPortrait}
+\newlength{\textwidthLandscape}
+\setlength{\textwidthLandscape}{\textheightPortrait}
+\newlength{\paperheightLandscape}
+\setlength{\paperheightLandscape}{\paperwidthPortrait}
+\newlength{\paperwidthLandscape}
+\setlength{\paperwidthLandscape}{\paperheightPortrait}
+\newlength{\vsizeLandscape}
+\setlength{\vsizeLandscape}{\hsizePortrait}
+\newlength{\hsizeLandscape}
+\setlength{\hsizeLandscape}{.674\vsizePortrait}
+\newlength{\headwidthLandscape} %header width
+\setlength{\headwidthLandscape}{\textwidthLandscape}
+
+
+\fancyhf{}
+\fancyhead[L]{Top Left}
+\fancyhead[C]{Top Center}
+\fancyhead[R]{Top Right}
+\renewcommand{\headrulewidth}{1pt}
+\fancyfoot[L]{M\$*''}
+\fancyfoot[C]{\thepage}
+\fancyfoot[R]{\today}
+\renewcommand{\footrulewidth}{1pt}
+\setlength{\footskip}{15pt}
+\pagestyle{fancy}
+
+
+
+
+
+
+\begin{document}
+\ULCornerWallPaper{1}{bg_a4_portrait_logo}
+\layout
+measures \\
+paperheightPortrait	\the\paperheightPortrait \\
+paperwidthPortrait	\the\paperwidthPortrait \\
+textwidthPortrait	\the\textwidthPortrait \\
+textheightPortrait	\the\textheightPortrait \\
+vsizePortrait	\the\vsizePortrait \\
+hsizePortrait	\the\hsizePortrait  \\
+headwidthPortrait	\the\headwidthPortrait \\
+paperheightLandscape	\the\paperheightLandscape \\
+paperwidthLandscape	\the\paperwidthLandscape \\
+textwidthLandscape	\the\textwidthLandscape \\
+textheightLandscape	\the\textheightLandscape \\
+vsizeLandscape	\the\vsizeLandscape \\
+hsizeLandscape	\the\hsizeLandscape  \\
+headwidthLandscape	\the\headwidthLandscape \\
+\lipsum[1-10]
+
+
+%landscape
+\newpage %need to be here (before page settings change)
+\headwidth=\headwidthLandscape
+\pdfpageheight=\paperheightLandscape
+\pdfpagewidth=\paperwidthLandscape
+\paperwidth=\paperwidthLandscape
+\paperheight=\paperheightLandscape
+\newpage
+
+
+\begingroup
+\ClearWallPaper
+\ULCornerWallPaper{1}{bg_a4_landscape_logo}
+
+\textwidth=\textwidthLandscape
+\textheight=\textheightLandscape
+%\vsize=\vsizeLandscape
+\hsize=\hsizeLandscape
+
+\newpage 
+LANDSCAPE ----------------------------------------------------------------
+\lipsum[1-22]
+\endgroup
+LANDSCAPE END --------------------------------------------------------------\\
+
+
+
+%restore configs
+\newpage
+\headwidth=\headwidthPortrait
+\pdfpageheight=\paperheightPortrait
+\pdfpagewidth=\paperwidthPortrait
+\paperwidth=\paperwidthPortrait
+\paperheight=\paperheightPortrait
+%since the variables below were changed inside the environment, we dont restore it
+%\vsize=\vsizePortrait
+%\hsize=\hsizePortrait
+%\textwidth=\textwidthPortrait
+%\textheight=\textheightPortrait
+
+\ClearWallPaper
+\ULCornerWallPaper{1}{bg_a4_portrait_logo}
+\lipsum[1-15]
+\newpage
+\lipsum[1-10]
+
+\end{document}
