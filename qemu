@@ -1,0 +1,45 @@
+#qemu setup for ppc
+
+fgrando@thinkx ~ $ uname -a
+Linux thinkx 4.4.0-53-generic #74-Ubuntu SMP Fri Dec 2 15:59:10 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
+
+fgrando@thinkx ~ $ sudo apt-get install qemu
+
+#install also the bios firmwares to be able to use qemu
+fgrando@thinkx ~ $ sudo apt-get install openbios-*
+
+#lets see how it looks
+fgrando@thinkx /usr/share/qemu $ ls -la
+total 92
+drwxr-xr-x   4 root root  4096 Feb  8 21:45 .
+drwxr-xr-x 398 root root 16384 Feb 15 20:37 ..
+-rw-r--r--   1 root root  3855 Feb  1 22:09 bamboo.dtb
+drwxr-xr-x   2 root root  4096 Feb  8 21:44 init
+drwxr-xr-x   2 root root  4096 Feb  8 21:44 keymaps
+lrwxrwxrwx   1 root root    24 Feb  1 22:13 openbios-ppc -> ../openbios/openbios-ppc
+lrwxrwxrwx   1 root root    28 Feb  1 22:13 openbios-sparc32 -> ../openbios/openbios-sparc32
+lrwxrwxrwx   1 root root    28 Feb  1 22:13 openbios-sparc64 -> ../openbios/openbios-sparc64
+-rw-r--r--   1 root root  9982 Nov  3  2015 petalogix-ml605.dtb
+-rw-r--r--   1 root root  8259 Nov  3  2015 petalogix-s3adsp1800.dtb
+lrwxrwxrwx   1 root root    27 Feb  1 22:13 ppc_rom.bin -> ../openhackware/ppc_rom.bin
+lrwxrwxrwx   1 root root    26 Nov 22 19:15 pxe-e1000.rom -> ../../lib/ipxe/82540em.rom
+lrwxrwxrwx   1 root root    21 Nov 22 19:15 pxe-ne2k_isa.rom -> ../../lib/ipxe/ne.rom
+lrwxrwxrwx   1 root root    26 Nov 22 19:15 pxe-pcnet32.rom -> ../../lib/ipxe/pcnet32.rom
+lrwxrwxrwx   1 root root    26 Nov 22 19:15 pxe-rtl8139.rom -> ../../lib/ipxe/rtl8139.rom
+lrwxrwxrwx   1 root root    29 Nov 22 19:15 pxe-virtio.rom -> ../../lib/ipxe/virtio-net.rom
+-rw-r--r--   1 root root   630 Aug 11  2015 qemu-icon.bmp
+-rw-r--r--   1 root root 30955 Oct  8  2015 qemu_logo_no_text.svg
+lrwxrwxrwx   1 root root    16 Feb  1 22:13 slof.bin -> ../slof/slof.bin
+lrwxrwxrwx   1 root root    22 Feb  1 22:13 spapr-rtas.bin -> ../slof/spapr-rtas.bin
+
+#creating a hdd
+fgrando@thinkx ~/qemu/ppc $ qemu-img create -f qcow2 linuxppc.qcow2 80G
+
+#use a ppc ISO from some OS
+# https://wiki.ubuntu.com/PowerPCDownloads
+# http://ports.ubuntu.com/ubuntu-ports/dists/precise-updates/main/installer-powerpc/current/images/powerpc/netboot/
+# etc...
+
+#go go go
+fgrando@thinkx ~/qemu/ppc $ qemu-system-ppc -hda linuxppc.qcow2 -cdrom mini_ppc32.iso -boot d -m 1024
+
