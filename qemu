@@ -34,6 +34,7 @@ lrwxrwxrwx   1 root root    22 Feb  1 22:13 spapr-rtas.bin -> ../slof/spapr-rtas
 
 #creating a hdd
 fgrando@thinkx ~/qemu/ppc $ qemu-img create -f qcow2 linuxppc.qcow2 80G
+#or use one ready from https://people.debian.org/~aurel32/qemu/powerpc/
 
 #use a ppc ISO from some OS
 # https://wiki.ubuntu.com/PowerPCDownloads
@@ -41,5 +42,5 @@ fgrando@thinkx ~/qemu/ppc $ qemu-img create -f qcow2 linuxppc.qcow2 80G
 # etc...
 
 #go go go
-fgrando@thinkx ~/qemu/ppc $ qemu-system-ppc -hda linuxppc.qcow2 -cdrom mini_ppc32.iso -boot d -m 1024
+fgrando@thinkx ~/qemu/ppc $ qemu-system-ppc -L Bios debian_wheezy_powerpc_desktop.qcow2 -net nic -net user -m 1024
 
