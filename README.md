@@ -14,9 +14,11 @@ As this scripts grow, they will be moved to a specific repository, so if you fee
 This python script uses a gmail account (using SSL) to send emails to any other address.
 Only text is supported right now.
 
-
 ## latex: template to landle portrait and landscape pages
 This template uses a background image for each mode (landscape and portrait).
 Also, the headers and footers are always aligned with text (as in portrait mode), even in landscape pages.
+
+## httpserver: small httpserver using python 3 embedded http.server
+Can run commands from server by urls
 
 ## TBD 
