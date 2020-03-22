@@ -23,8 +23,17 @@ Can run commands from server by urls
 
 ## log.py: Log facility for python scripts
 Example:
+```
 	from log import *
 	log = Log("example").get()
 	log.info("hello!")
+```
+Output:
+
+```
+2020-03-22 09:57:10,010 - exampl - INFO - Log started with name: 'exampl' file: 'None' level: '10'
+2020-03-22 09:57:10,010 - exampl - INFO - hello!
+```
+
 
 ## TBD 
