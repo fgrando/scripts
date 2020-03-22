@@ -31,8 +31,8 @@ Example:
 Output:
 
 ```
-2020-03-22 09:57:10,010 - exampl - INFO - Log started with name: 'exampl' file: 'None' level: '10'
-2020-03-22 09:57:10,010 - exampl - INFO - hello!
+2020-03-22 09:57:10,010 - example - INFO - Log started with name: 'example' file: 'None' level: '10'
+2020-03-22 09:57:10,010 - example - INFO - hello!
 ```
 
 
