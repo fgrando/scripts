@@ -21,4 +21,10 @@ Also, the headers and footers are always aligned with text (as in portrait mode)
 ## httpserver: small httpserver using python 3 embedded http.server
 Can run commands from server by urls
 
+## log.py: Log facility for python scripts
+Example:
+	from log import *
+	log = Log("example").get()
+	log.info("hello!")
+
 ## TBD 
