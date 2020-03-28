@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import logging
 import smtplib
@@ -105,8 +105,8 @@ class EmailSender():
 
 
     def load_attachment(self, filepath, message):
-        """Load files as attachments. If the file is not text,
-        image or audio, it will be loaded with MIMEBase and encoded.
+        """Load files as attachments. All files are 
+        loaded with MIMEBase and encoded.
 
         Args:
             filepath (str): The file path.
@@ -115,36 +115,16 @@ class EmailSender():
 
         msg = None
         content_type, encoding = mimetypes.guess_type(filepath)
-
-        if (content_type is None) or (encoding is not None):
-            content_type = 'application/octet-stream'
-
         main_type, sub_type = content_type.split('/', 1)
 
         self.log.debug("{}: content [{}] encoding [{}] type [{}] sub [{}]".format(\
             filepath, content_type, encoding, main_type, sub_type))
 
-        if main_type == 'text':
-            fp = open(filepath, 'rb')
-            msg = MIMEText(fp.read(), _subtype=sub_type)
-            fp.close()
-
-        elif main_type == 'image':
-            fp = open(filepath, 'rb')
-            msg = MIMEImage(fp.read(), _subtype=sub_type)
-            fp.close()
-
-        elif main_type == 'audio':
-            fp = open(filepath, 'rb')
-            msg = MIMEAudio(fp.read(), _subtype=sub_type)
-            fp.close()
-
-        else:
-            fp = open(filepath, 'rb')
-            msg = MIMEBase(main_type, sub_type)
-            msg.set_payload(fp.read())
-            encoders.encode_base64(msg)
-            fp.close()
+        fp = open(filepath, 'rb')
+        msg = MIMEBase(main_type, sub_type)
+        msg.set_payload(fp.read())
+        encoders.encode_base64(msg)
+        fp.close()
 
         filename = os.path.basename(filepath)
         self.log.debug('attachment filename [{}]'.format(filename))
