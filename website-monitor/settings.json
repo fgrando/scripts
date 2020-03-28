@@ -1,0 +1,7 @@
+{
+    "smtp":"smtp.gmail.com",
+    "port":465,
+    "email":"<youremail>@gmail.com",
+    "password":"<yourpass>",
+    "recipients":[ "<recipient1>@acad.pucrs.br", "<recipient2>@gmail.com"]
+}

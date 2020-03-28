@@ -56,4 +56,22 @@ Output:
 ```
 
 ------------
+### website-monitor: Request webpage, parse it and send change alerts by email
+
+Configure emails settings (authentication and recipients) in the json file.
+Other configurations can be changed directly in monitor.py:
+
+```
+# Monitoring configs
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+email_settings = 'settings.json'
+website = 'https://www.horariodebrasilia.org/'
+refresh_interval_seconds = 60
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+```
+
+A Systemd example file is included to add this as a linux service.
+
+------------
 ## ...

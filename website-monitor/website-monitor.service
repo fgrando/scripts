@@ -1,0 +1,14 @@
+# This is a linux file to a service
+
+[Unit]
+Description=Website monitor
+
+[Service]
+#ExecStartPre=/bin/sh ls
+WorkingDirectory=/opt/website-monitor
+ExecStart=/opt/website-monitor/monitor.py
+TimeoutStartSec=0
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target
