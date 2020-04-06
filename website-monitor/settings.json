@@ -3,5 +3,5 @@
     "port":465,
     "email":"<youremail>@gmail.com",
     "password":"<yourpass>",
-    "recipients":[ "<recipient1>@acad.pucrs.br", "<recipient2>@gmail.com"]
+    "recipients":[ "<recipient1>@email.br", "<recipient2>@gmail.com"]
 }
