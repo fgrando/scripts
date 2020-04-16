@@ -36,7 +36,7 @@ from email import encoders
 
 
 
-class EmailSender():
+class EmailTo():
     """Simple client to send emails.
 
     Args:
