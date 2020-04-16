@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+import argparse
 import logging
 import smtplib
 import mimetypes
@@ -10,6 +11,29 @@ from email.mime.image import MIMEImage
 from email.mime.audio import MIMEAudio
 from email.mime.multipart import MIMEMultipart
 from email import encoders
+
+
+
+
+
+##########################################################
+#
+#
+#              PUT YOUR CREDENTIALS HERE!
+#                                 
+#
+(login, passwd) = ('<email@gmail.com>', '<the password>')
+#
+#
+#
+#
+##########################################################
+
+
+
+
+
+
 
 
 class EmailSender():
@@ -68,10 +92,13 @@ class EmailSender():
         msg.attach(txt)
 
         try:
-            self.log.debug('loading attachments...')
+            if len(attachments) > 0:
+                self.log.debug('loading attachments...')
+        
             for path in attachments:
                 self.log.debug('attaching [{}]'.format(path))
                 self.load_attachment(path, msg)
+        
         except:
             self.log.error("Failed to load attachments")
             return False
@@ -115,10 +142,16 @@ class EmailSender():
 
         msg = None
         content_type, encoding = mimetypes.guess_type(filepath)
-        main_type, sub_type = content_type.split('/', 1)
-
-        self.log.debug("{}: content [{}] encoding [{}] type [{}] sub [{}]".format(\
-            filepath, content_type, encoding, main_type, sub_type))
+        self.log.debug("{}: content [{}] encoding [{}]".format(\
+            filepath, content_type, encoding))
+        
+        if content_type != None:
+            main_type, sub_type = content_type.split('/', 1)
+            self.log.debug("{}: type [{}] sub [{}]".format(\
+                filepath, main_type, sub_type))
+        else:
+            main_type = None
+            sub_type = None
 
         fp = open(filepath, 'rb')
         msg = MIMEBase(main_type, sub_type)
@@ -135,36 +168,45 @@ class EmailSender():
 
 # Example
 if __name__ == '__main__':
+    if passwd == '<the password>'
+        print("Please update this script 'login' and 'passwd' with your credentials!")
+        exit(-2)
+
+    ap = argparse.ArgumentParser()
+    ap.add_argument('-s', '--subject', required=True,
+        help='Subject of the email')
+    ap.add_argument('-m', '--message', required=True,
+        help='Message of the email (content)')
+    ap.add_argument("-r", "--recipients", required=True,
+        help='Comma separated list of emails recipients like: "email1@asdf.com,email2@asdf.com"')
+    ap.add_argument("-a", "--attachments", required=False,
+        help='Comma separated list of file paths to be attached like: "/home/user/msg.txt,/home/user/other.png"')
+    ap.add_argument("-v", "--verbose", required=False, action='count', default=0, 
+        help='Show detailed output')
+
+    args = vars(ap.parse_args())
+
     # Create a log so we can see get some output (not mandatory, but wise)
     log = logging.getLogger("sender")
-    log.setLevel(logging.DEBUG)
+    if args['verbose'] > 0:
+        log.setLevel(logging.DEBUG)
+    else:
+        log.setLevel(logging.WARNING)
+
     ch = logging.StreamHandler()
-    ch.setFormatter(logging.Formatter('%(name)s-%(levelname)s: %(message)s'))
+    ch.setFormatter(logging.Formatter('%(message)s'))
     log.addHandler(ch)
 
     # inform the user credentials
-    sender = EmailSender("smtp.gmail.com", 465, "<youremail>@gmail.com", "<yourpassword>", log)
+    sender = EmailSender("smtp.gmail.com", 465, login, passwd, log)
 
-    log.info("Sending simple email")
-    # simple email
-    ret = sender.send(["<destination>@gmail.com"], "simple email", "hello world")
-
-    log.info("Sending email with attachments")
-    # email with attachments
-    ret = sender.send(\
-        [\
-            "<destination>@gmail.com"\
-        ],\
-        "This email contains attachments",\
-        "Lorem ipsum lalalala",\
-        [\
-            "/home/fgrando/fix_mouse.sh",\
-            "/home/fgrando/Pictures/mypic.png",\
-            "/home/fgrando/Desktop/file.pdf",\
-            "/home/fgrando/Desktop/audio.mp3",\
-            "/home/fgrando/Desktop/video.mp4",\
-            "/home/fgrando/Desktop/zipped.zip"\
-        ]\
-    )
-
+    if args['attachments'] != None:
+        ret = sender.send(args['recipients'].split(','), args['subject'],  args['message'], args['attachments'].split(','))
+    else:
+        ret = sender.send(args['recipients'].split(','), args['subject'],  args['message'])
+    
+    if ret:
+        exit(0)
+    else:
+        exit(-1)
 
